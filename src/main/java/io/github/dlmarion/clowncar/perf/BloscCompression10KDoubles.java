@@ -58,7 +58,7 @@ public class BloscCompression10KDoubles {
 
 	private static final long srcLength = Double.BYTES * 10000;
 	private static final long dstLength = srcLength + 16;
-	private static final ByteBuffer srcLongs = ByteBuffer.allocateDirect((int)srcLength);
+	private static final ByteBuffer src = ByteBuffer.allocateDirect((int)srcLength);
 	private static final ByteBuffer dst = ByteBuffer.allocateDirect((int)dstLength);
 	private static final Random r = new Random(1352351385L);
 
@@ -66,19 +66,21 @@ public class BloscCompression10KDoubles {
 		for (int i = 0; i < 10000; i++) {
 			double d = r.nextDouble() * 10000;
 			d += r.nextDouble() * 10;
-			srcLongs.putDouble(d);
+			src.putDouble(d);
 		}
 	}
 	
     @Benchmark
     public void testJnrCompression(CompressedSize result) {
-    	result.size += io.github.dlmarion.clowncar.jnr.BloscLibrary.compress(this.level, this.shuffle, Double.BYTES, srcLongs, srcLength, dst, dstLength, this.compressor, (int)srcLength, this.threads);
+    	result.size += io.github.dlmarion.clowncar.jnr.BloscLibrary.compress(this.level, this.shuffle, Double.BYTES, 
+    			src, srcLength, dst, dstLength, this.compressor, (int)srcLength, this.threads);
     	result.executions++;
     }
 
     @Benchmark
     public void testJnaCompression(CompressedSize result) {
-    	result.size += io.github.dlmarion.clowncar.jna.BloscLibrary.compress(this.level, this.shuffle, Double.BYTES, srcLongs, srcLength, dst, dstLength, this.compressor, (int)srcLength, this.threads);
+    	result.size += io.github.dlmarion.clowncar.jna.BloscLibrary.compress(this.level, this.shuffle, Double.BYTES, 
+    			src, srcLength, dst, dstLength, this.compressor, (int)srcLength, this.threads);
     	result.executions++;
     }
 
