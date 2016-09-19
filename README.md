@@ -13,11 +13,11 @@
 
 ### Install [Clowncar] (https://github.com/dlmarion/clowncar)
 
+* export LD\_LIBRARY\_PATH=your\_install\_prefix\_directory/include:your\_install\_prefix\_directory/lib
 * git clone git@github.com:dlmarion/clowncar.git
 * mvn clean install
 
 ## Running the benchmarks
 
-* export LD\_LIBRARY\_PATH=your\_install\_prefix\_directory
 * mvn clean package
 * java -jar target/benchmarks.jar
