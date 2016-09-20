@@ -1,5 +1,7 @@
 package io.github.dlmarion.clowncar.perf;
 
+import io.github.dlmarion.clowncar.Blosc;
+
 import java.nio.ByteBuffer;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -57,7 +59,7 @@ public class BloscCompression10KDoubles {
 	}
 
 	private static final long srcLength = Double.BYTES * 10000;
-	private static final long dstLength = srcLength + 16;
+	private static final long dstLength = srcLength + Blosc.OVERHEAD;
 	private static final ByteBuffer src = ByteBuffer.allocateDirect((int)srcLength);
 	private static final ByteBuffer dst = ByteBuffer.allocateDirect((int)dstLength);
 	private static final Random r = new Random(1352351385L);

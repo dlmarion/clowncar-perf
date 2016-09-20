@@ -1,5 +1,7 @@
 package io.github.dlmarion.clowncar.perf;
 
+import io.github.dlmarion.clowncar.Blosc;
+
 import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +26,7 @@ import org.openjdk.jmh.annotations.Warmup;
 public class NativeCallOverhead {
 	
 	private static final long srcLength = Long.BYTES * 10000;
-	private static final long dstLength = srcLength + 16;
+	private static final long dstLength = srcLength + Blosc.OVERHEAD;
 	private static final ByteBuffer srcLongs = ByteBuffer.allocateDirect((int)srcLength);
 	private static final ByteBuffer dst = ByteBuffer.allocateDirect((int)dstLength);
 
